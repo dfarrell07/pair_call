@@ -46,9 +46,9 @@ class Pair(object):
         """Find the number of weekdays between the given dates.
 
         :param start_day: Temporally first day to find diff between.
-        :type start_day: date
+        :type start_day: datetime.date
         :param end_day: Temporally second day to find diff between.
-        :type end_day: date
+        :type end_day: datetime.date
 
         """
         if not start_day <= end_day:
@@ -62,9 +62,21 @@ class Pair(object):
         return day_diff
 
     def compute_pairs(self, day=None):
-        """TODO
+        """Main entry point. Pair off devs based on number of days passed.
 
-        TODO: This should take a date
+        This is using a Round Robbin algorithm. Note that it's RR in the
+        context of tournament things, not context switching (which through
+        me off pretty hard).
+
+        Finds the number of days since the magic start day, then uses that
+        to rotate between sets of possible pairings, which are called
+        'fixtures' in tournament lingo. The day's fixture is split in half,
+        then the second half is reversed. The resulting structure is the
+        foundation of the RR algo - it the two halfs can be paired index
+        to index to get the day's pairs.
+
+        :param day: Find the pairs for this date.
+        :type day: datetime.date
 
         """
         # If no day given, use today
