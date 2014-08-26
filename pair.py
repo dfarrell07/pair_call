@@ -4,6 +4,7 @@
 import datetime
 from datetime import date, timedelta
 import sys
+import optparse
 
 
 class Pair(object):
@@ -103,13 +104,32 @@ class Pair(object):
             pairs[dev1] = dev0
         return pairs
 
+def parseParams():
+    parser = optparse.OptionParser(version="0.1")
+    parser.add_option("-n", "--name", action="store", type="string", dest="name",
+                      default="", help="Name of person; likely your name")
+    (options, args) = parser.parse_args(sys.argv)
+
+    params = {}
+    params["args"] = args
+    params["name"] = options.name
+
+    # prompt for name, if none was provided (including argv[1])
+    if options.name == "":
+        if len(args) > 1:
+            params["name"] = args[1]
+        else:
+            print "Your name:",
+            params["name"] = raw_input()
+
+    return params
 
 # When run as script
 if __name__ == "__main__":
     pair_maker = Pair()
     pairs = pair_maker.compute_pairs()
-    print "Your name:",
-    dev = raw_input().capitalize()
+    params = parseParams()
+    dev = params["name"].capitalize()
     if dev not in pair_maker.devs:
         print "Unknown dev: {}, known devs: {}".format(dev, pair_maker.devs)
         sys.exit(1)
