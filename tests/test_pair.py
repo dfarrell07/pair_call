@@ -6,6 +6,23 @@ from datetime import date, timedelta
 import pair as pair_mod
 
 
+class TestPair(unittest.TestCase):
+
+    """Test Pair object constructor."""
+
+    def test_odd_number_devs(self):
+        """Build Pair object with an odd number of devs, should be made even."""
+        pair_mod.Pair.devs = ["dev1", "dev2", "dev3"]
+        pair_maker = pair_mod.Pair()
+        assert len(pair_maker.devs) == 4
+
+    def test_even_number_devs(self):
+        """Build Pair object with an even number of devs, should stay even."""
+        pair_mod.Pair.devs = ["dev1", "dev2"]
+        pair_maker = pair_mod.Pair()
+        assert len(pair_maker.devs) == 2
+
+
 class TestComputePair(unittest.TestCase):
 
     """Tests for method that actually does the pair-selection computation."""
@@ -42,8 +59,8 @@ class TestComputeDayDiff(unittest.TestCase):
 
     def setUp(self):
         """Build Pair object and example days."""
-        # Days with *0 are one week, days with *1 are the next week
         self.pair_maker = pair_mod.Pair()
+        # Days with *0 are one week, days with *1 are the next week
         self.monday0 = date(2014, 8, 25)
         self.tuesday0 = date(2014, 8, 26)
         self.friday0 = date(2014, 8, 29)
@@ -73,3 +90,24 @@ class TestComputeDayDiff(unittest.TestCase):
         with self.assertRaises(ValueError):
             day_diff = self.pair_maker.compute_day_diff(self.tuesday0,
                                                         self.monday0)
+
+
+class TestBuildFixtures(unittest.TestCase):
+
+    """Test method that builds list of fixtures."""
+
+    def setUp(self):
+        """Build Pair object."""
+        self.pair_maker = pair_mod.Pair()
+
+    def test_type(self):
+        """Confirm that fixtures object is of type list."""
+        fixtures = self.pair_maker.build_fixtures()
+        assert type(fixtures) is list
+
+    def test_rotate_around_index_zero(self):
+        """Confirm that list is rotating around dev at index zero."""
+        fixtures = self.pair_maker.build_fixtures()
+        dev_at_zero = fixtures[0][0]
+        for fixture in fixtures:
+            assert dev_at_zero == fixture[0]
