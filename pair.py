@@ -109,8 +109,8 @@ if __name__ == "__main__":
     pair_maker = Pair()
     pairs = pair_maker.compute_pairs()
     print "Your name:",
-    dev = raw_input()
-    if dev.capitalize() not in pair_maker.devs:
+    dev = raw_input().capitalize()
+    if dev not in pair_maker.devs:
         print "Unknown dev: {}, known devs: {}".format(dev, pair_maker.devs)
         sys.exit(1)
     print "You're paired with: {}".format(pairs[dev])
