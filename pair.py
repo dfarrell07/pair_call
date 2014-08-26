@@ -104,10 +104,12 @@ class Pair(object):
             pairs[dev1] = dev0
         return pairs
 
+
 def parseParams():
     parser = optparse.OptionParser(version="0.1")
-    parser.add_option("-n", "--name", action="store", type="string", dest="name",
-                      default="", help="Name of person; likely your name")
+    parser.add_option("-n", "--name", action="store", type="string",
+                      dest="name", default="",
+                      help="Name of person; likely your name")
     (options, args) = parser.parse_args(sys.argv)
 
     params = {}

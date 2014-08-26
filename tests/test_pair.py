@@ -11,7 +11,7 @@ class TestPair(unittest.TestCase):
     """Test Pair object constructor."""
 
     def test_odd_number_devs(self):
-        """Build Pair object with an odd number of devs, should be made even."""
+        """Build Pair object with odd number of devs, should be made even."""
         pair_mod.Pair.devs = ["dev1", "dev2", "dev3"]
         pair_maker = pair_mod.Pair()
         assert len(pair_maker.devs) == 4
@@ -50,7 +50,8 @@ class TestComputePair(unittest.TestCase):
             day = self.pair_maker.start_day + timedelta(day_diff)
             pairs = self.pair_maker.compute_pairs(day)
             for dev0, dev1 in pairs.iteritems():
-                assert dev0 == pairs[dev1], "{} != {}, pairs: {}".format(pairs[dev0], pairs[dev1], pairs)
+                assert dev0 == pairs[dev1], "{} != {}, pairs: {}".format(
+                    pairs[dev0], pairs[dev1], pairs)
 
 
 class TestComputeDayDiff(unittest.TestCase):
@@ -73,7 +74,8 @@ class TestComputeDayDiff(unittest.TestCase):
 
     def test_today_and_tomorrow(self):
         """Test start day today and end day tomorrow."""
-        day_diff = self.pair_maker.compute_day_diff(self.monday0, self.tuesday0)
+        day_diff = self.pair_maker.compute_day_diff(self.monday0,
+                                                    self.tuesday0)
         assert day_diff == 1
 
     def test_one_week_diff(self):
