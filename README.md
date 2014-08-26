@@ -32,3 +32,13 @@ The name input part of the code isn't case sensitive.
 Your name: daniel
 You're paired with: Madhu
 ```
+
+### Contributing
+
+Contributions are welcome!
+
+For bugs or feature requests, please raise an [Issue](https://github.com/dfarrell07/pair_call/issues) via GitHub.
+
+To contribute changes, fork the code base, make your changes and then submit a pull request.
+
+You can contact me directly at dfarrell@redhat.com or on IRC at Freenode/#opendaylight. My nic is dfarrell07.
