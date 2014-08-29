@@ -89,6 +89,7 @@ class TestComputeDayDiff(unittest.TestCase):
         assert day_diff == 1
 
     def test_invalid_order(self):
+        """Pass a start day that's after the end day."""
         with self.assertRaises(ValueError):
             day_diff = self.pair_maker.compute_day_diff(self.tuesday0,
                                                         self.monday0)
